@@ -1,15 +1,16 @@
 from aiogram import types
 from aiogram.dispatcher import FSMContext
-from aiogram.dispatcher.filters import Text, CommandStart
 from aiogram.types import ReplyKeyboardRemove, InlineKeyboardMarkup, InlineKeyboardButton
 
-import Source.files_links
+import Source.media_back.files_links
 from Source.keyboards import after_promo_video, utochenie, questions, go_back_button
 from loader import dp, bot
 from Source.states import MenuStates
 from Source import text_of_message
 from Source.utils import send_text_separately
 
+
+#Для определения ID видео при создании бота с новым адрессом
 #@dp.message_handler(state = '*', content_types=["video"])
 #async def handle_video(message):
 #    video_id=message.video.file_id
@@ -20,7 +21,7 @@ from Source.utils import send_text_separately
 @dp.message_handler(text='/start', state = ['*'])
 async def start(message: types.Message):
     await message.answer(text_of_message.greeting_text, reply_markup=after_promo_video)
-    await bot.send_video(message.from_user.id, video=Source.files_links.promo_video)
+    await bot.send_video(message.from_user.id, video=Source.media_back.files_links.promo_video)
     await MenuStates.what_do_you_want.set()
 
 
@@ -48,7 +49,7 @@ async def state_navigator(message, state):
 @dp.message_handler(state=MenuStates.go_to_manager)
 async def manager(message: types.Message, state: FSMContext):
     await message.answer(text_of_message.go_to_manager_text, reply_markup=ReplyKeyboardRemove())
-    await message.answer("Мария с удовольствием вам поможет 📝",
+    await message.answer("Менеджер Мария проконсультирует Вас!",
                          reply_markup=InlineKeyboardMarkup().
                          add(InlineKeyboardButton('Оформить заказ ✅',
                                                  url='https://t.me/packman_maria')))

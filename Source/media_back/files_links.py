@@ -1,0 +1,4 @@
+
+old_bot_promo_video = 'BAACAgIAAxkBAAPJY3TDLh1WMCc7RqcwLyKqsNZWPA0AAnYeAAKCd6FLAmCh2ucFdHMrBA'
+
+promo_video = 'BAACAgIAAxkBAAMQY3YMRMriwvI1DkKal14L2cT8jnQAAt4fAAJ7GLlLL4slqQQoe4ArBA'
