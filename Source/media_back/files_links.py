@@ -1,6 +1,9 @@
+#Раскоментировать для получения file_id
+#from aiogram import types
+#from loader import dp
 
 branding = "AgACAgIAAxkBAAIBQWN4LujIrP4x2_s9C0WsO5DtFQq2AALJvzEb_SLBS7L_LDFmXGWpAQADAgADcwADKwQ"
-brand_book = "BQACAgIAAxkBAAIBRWN4L_kxcs5FrittdBv6hMqvNvo_AALcHwAChEjASy8nSTJaBsLCKwQ"
+brand_book = "BQACAgIAAxkBAAICPmN4OBmZ-XnFcmvimKL3fQgGnzkAA-MfAAKESMBL7p5NQq7VjZwrBA"
 
 
 # Для определения ID видео при создании бота с новым адрессом
