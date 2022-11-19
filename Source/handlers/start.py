@@ -2,27 +2,29 @@ from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.types import ReplyKeyboardRemove, InlineKeyboardMarkup, InlineKeyboardButton
 
-import Source.media_back.files_links
-from Source.keyboards import after_promo_video, utochenie, questions, go_back_button
+from config import ADMIN_ID, VIP_LIST
 from loader import dp, bot
+
+from Source.keyboards import after_promo_video, utochenie, questions, go_back_button
 from Source.states import MenuStates
 from Source import text_of_message
 from Source.utils import send_text_separately
+from Source.media_back import files_links
 
-
-#Для определения ID видео при создании бота с новым адрессом
-#@dp.message_handler(state = '*', content_types=["video"])
-#async def handle_video(message):
-#    video_id=message.video.file_id
-#    print(video_id)
-#    await bot.send_message(message.from_user.id, video_id)
 
 
 @dp.message_handler(text='/start', state = ['*'])
 async def start(message: types.Message):
     await message.answer(text_of_message.greeting_text, reply_markup=after_promo_video)
-    await bot.send_video(message.from_user.id, video=Source.media_back.files_links.promo_video)
+    await bot.send_document(message.from_user.id, files_links.brand_book)
     await MenuStates.what_do_you_want.set()
+
+@dp.message_handler(text='/statistics', state = ['*'])
+async def get_statistics(message: types.Message):
+    ID = message.from_user.id
+    if ID == int(ADMIN_ID) or ID in VIP_LIST:
+        await message.answer("Очень скоро здесь будет статистика использования кнопок👌", reply_markup=ReplyKeyboardRemove())
+
 
 
 @dp.message_handler(text='Назад ◀', state=[MenuStates.go_back, MenuStates.go_to_manager])
@@ -70,6 +72,8 @@ async def question(message: types.Message, state: FSMContext):
         await delivering(message,state)
     elif message.text == "Оплата 💳":
         await payment(message,state)
+    elif message.text == "Брендирование пакетов 🔥":
+        await branding(message, state)
     else:
         await message.answer(text_of_message.error_text)
 
@@ -88,6 +92,12 @@ async def delivering(message: types.Message, state: FSMContext):
 
 async def payment(message: types.Message, state: FSMContext):
     await send_text_separately(text_of_message.payment, message.from_user.id, keyboard_dlt_status=True)
+    await way_to_back(message, state)
+
+
+async def branding(message: types.Message, state: FSMContext):
+    await send_text_separately(text_of_message.branding, message.from_user.id, keyboard_dlt_status=True)
+    await bot.send_photo(message.from_user.id, files_links.branding)
     await way_to_back(message, state)
 
 

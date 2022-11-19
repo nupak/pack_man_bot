@@ -23,8 +23,9 @@ questions = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(text="Стоимость 🧾"),
-            KeyboardButton(text="Оплата 💳"),
-            KeyboardButton(text="Доставка 📦")
+            KeyboardButton(text="Оплата 💳")],
+            [KeyboardButton(text="Доставка 📦"),
+            KeyboardButton(text="Брендирование пакетов 🔥")
         ],
     ],
     resize_keyboard=True
